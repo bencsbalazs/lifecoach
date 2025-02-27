@@ -1,7 +1,19 @@
-FROM python:3.10
+FROM python:3.13-slim-bookworm AS get-requirements
+
+# Install apt packages
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    build-essential \
+    libpq-dev \
+    gcc
+
+ENV PYTHONUNBUFFERED 1
 WORKDIR /app
-COPY requirements.txt .
+COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+FROM get-requirements AS copy-app
+WORKDIR /app
 COPY . .
+RUN python3 manage.py collectstatic --noinput
+FROM copy-app AS app-runner
 EXPOSE 8000
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "lifecoach.wsgi:application"]
+CMD python3 manage.py migrate --noinput && gunicorn -w 4 -b 0.0.0.0:8000 lifecoach.wsgi:application
