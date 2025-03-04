@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "React Debug (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:6001",
+      "webRoot": "${workspaceFolder}/frontend/src"
+    },
+    {
+      "name": "Django Debug (Docker)",
+      "type": "debugpy",
+      "request": "attach",
+      "connect": {
+        "host": "localhost",
+        "port": 6002
+      },
+      "pathMappings": [
+        {
+          "localRoot": "${workspaceFolder}/backend",
+          "remoteRoot": "/app"
+        }
+      ]
+    }
+  ]
+}
