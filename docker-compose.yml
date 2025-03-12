@@ -4,7 +4,7 @@ services:
     container_name: lifecoach_db
     restart: always
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready', '-q', '-d', 'lifecoach_db', '-U', 'lifecoach_user']
+      test: ["CMD-SHELL", "pg_isready -q -d lifecoach_db -U lifecoach_user"]
       interval: 10s
       timeout: 60s
       retries: 5
@@ -20,7 +20,7 @@ services:
     ports:
       - "6003:5432"
   backend:
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile
     container_name: lifecoach_backend
@@ -38,7 +38,7 @@ services:
       - ./backend:/app
 
   frontend:
-    build: 
+    build:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: lifecoach_frontend

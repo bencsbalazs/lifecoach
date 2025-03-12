@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / ".env")
 
-SECRET_KEY = "django-insecure-%dy4=qb)hnaie5o(m(0x0dw94qk=u)_drxy&$8j*zled-d%dqt"
+SECRET_KEY = env("DJANGO_SECRET")
 DEBUG = env("DEBUG", default="False") == "True"
 ALLOWED_HOSTS = ["*"]
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
@@ -48,12 +48,12 @@ TEMPLATES = [
 WSGI_APPLICATION = "lifecoach.wsgi.application"
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": "lifecoach_db",
         "USER": "lifecoach_user",
         "PASSWORD": "secretpassword",
-        "HOST": "lifecoach_db",
-        "PORT": "6001",
+        "HOST": "db",
+        "PORT": "5432",
     }
 }
 AUTH_PASSWORD_VALIDATORS = [

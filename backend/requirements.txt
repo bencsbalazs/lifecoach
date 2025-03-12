@@ -1,8 +1,11 @@
+coverage
 debugpy
 django
-django-admin
-djangorestframework
 django-environ
-psycopg2
-redis
+djangorestframework
 gunicorn
+pre-commit
+psycopg2-binary
+pytest-django
+pytest
+redis
