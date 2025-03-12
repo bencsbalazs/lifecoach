@@ -12,6 +12,7 @@ repos:
         exclude: \.(map|min\.(js|css))
       - id: trailing-whitespace
       - id: pretty-format-json
+        autofix: true
       - id: check-added-large-files
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
