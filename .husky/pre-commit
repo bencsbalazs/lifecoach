@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+CHANGED_FILES=$(git diff --cached --name-only)
+RUN_FRONTEND=false
+RUN_BACKEND=false
+for file in $CHANGED_FILES; do
+  case "$file" in
+    frontend/*)
+      RUN_FRONTEND=true
+      ;;
+    backend/*)
+      RUN_BACKEND=true
+      ;;
+  esac
+done
+if [ "$RUN_FRONTEND" = true ]; then
+  echo "🔍 Running frontend lint checks..."
+  cd frontend || exit 1
+  npx lint-staged
+  cd ..
+fi
+if [ "$RUN_BACKEND" = true ]; then
+  echo "🛠 Running backend pre-commit hooks..."
+  cd backend || exit 1
+  pre-commit run --all-files
+  cd ..
+fi

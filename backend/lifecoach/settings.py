@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / ".env")
 
-SECRET_KEY = env("DJANGO_SECRET")
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 DEBUG = env("DEBUG", default="False") == "True"
 ALLOWED_HOSTS = ["*"]
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
