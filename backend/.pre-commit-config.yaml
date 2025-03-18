@@ -12,6 +12,7 @@ repos:
         exclude: \.(map|min\.(js|css))
       - id: trailing-whitespace
       - id: check-added-large-files
+      - id: pretty-format-json
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.8.2
@@ -24,8 +25,16 @@ repos:
     hooks:
       - id: yamllint
         args: ["-d {extends: relaxed, rules: {line-length: {max: 120}}}"]
-        stages: [commit, push]
+        stages: [pre-commit, pre-push]
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.8.0
     hooks:
       - id: mypy
+  - repo: local
+    hooks:
+      - id: django-tests
+        name: Run Django tests
+        entry: python manage.py test
+        language: system
+        pass_filenames: false
+        always_run: true
