@@ -1,0 +1,30 @@
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: local
+    hooks:
+      - id: install-deps
+        name: install dependencies
+        entry: npm --prefix frontend install
+        language: node
+        pass_filenames: false
+      - id: prettier
+        name: format code
+        entry: npm run --prefix frontend prettier:fix
+        language: node
+        pass_filenames: false
+      - id: eslint
+        name: lint and fix
+        entry: npm run --prefix frontend lint:fix
+        language: node
+        pass_filenames: false
+        additional_dependencies: ['eslint@8']
+      - id: typescript
+        name: check types
+        entry: npm run --prefix frontend ts
+        language: node
+        pass_filenames: false

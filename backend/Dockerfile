@@ -7,12 +7,12 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   gcc
 
 ENV PYTHONUNBUFFERED 1
-WORKDIR /app
+WORKDIR /workspace/backend
 COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 FROM get-requirements AS copy-app
-WORKDIR /app
+WORKDIR /workspace/backend
 COPY . .
 
 FROM copy-app AS app-runner
